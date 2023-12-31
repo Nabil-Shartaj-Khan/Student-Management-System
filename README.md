@@ -20,5 +20,7 @@ More features to be added soon...
 ***Used languages and frameworks***
 
 **Frontend-** HTML, CSS , Bootstrap and ReactJS
+
 **Backend-** ExpressJS and NodeJS
+
 **Database-** MySQL
