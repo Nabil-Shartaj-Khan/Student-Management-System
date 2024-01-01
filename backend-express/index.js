@@ -317,6 +317,23 @@ app.get("/view", verifyUser, (req, res) => {
   });
 });
 
+app.get("/details/:id", verifyUser, (req, res) => {
+  const courseId = req.params.id;
+  const sql = "SELECT * FROM course WHERE id = ?";
+  
+  db.query(sql, [courseId], (error, result) => {
+    if (error) {
+      return res.status(500).json({ error: "Internal server error" });
+    }
+
+    if (result.length > 0) {
+      return res.status(200).json(result[0]); 
+    } else {
+      return res.status(404).json({ message: "Course not found" });
+    }
+  });
+});
+
 
 
 

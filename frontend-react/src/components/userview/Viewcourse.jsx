@@ -52,9 +52,12 @@ const Viewcourse = () => {
                       <b>Seat status: </b>
                       {course.seat_limit}
                     </p>
-                    <button className="card-text btn btn-success">
-                      Book seat
-                    </button>
+                    <Link
+                      to={`/details/${course.id}`}
+                      className="card-text btn btn-success"
+                    >
+                      See more
+                    </Link>
                   </div>
                 </div>
               </div>
