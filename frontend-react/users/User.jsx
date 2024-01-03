@@ -11,6 +11,10 @@ const User = ({ name }) => {
       <Link to={"/view"} className="btn btn-warning mb-4 ms-4">
         View courses
       </Link>
+
+      <Link to={"/enroll_list"} className="btn btn-info mb-4 ms-4">
+        Enrolled Courses
+      </Link>
     </div>
   );
 };

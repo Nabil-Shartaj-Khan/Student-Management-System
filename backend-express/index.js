@@ -382,6 +382,22 @@ app.post("/enrollments/book", verifyUser, (req, res) => {
 });
 
 
+app.get("/enrollments/user/:userId", (req, res) => {
+  const userId = req.params.userId;
+
+  const sql = "SELECT * FROM enrollments JOIN course ON enrollments.course_id = course.id WHERE enrollments.student_id = ?";
+  
+  db.query(sql, [userId], (error, results) => {
+    if (error) {
+      res.status(500).json({ error: "Internal server error" });
+    } else {
+      res.status(200).json(results);
+    }
+  });
+});
+
+
+
 
 
 
