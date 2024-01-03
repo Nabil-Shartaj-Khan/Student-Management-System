@@ -13,7 +13,7 @@
 1. User can login via JWT token.
 2. User can edit his profile.
 3. User can view all the available courses
-4. Book a course (upcoming)
+4. Book a course
 
 More features to be added soon...
 
