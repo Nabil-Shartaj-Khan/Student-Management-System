@@ -8,6 +8,7 @@ const Update = () => {
   const [num, setNum] = useState("");
   const [city, setCity] = useState("");
   const [gender, setGender] = useState("");
+  const [email, setEmail] = useState("");
 
   const { id } = useParams();
   const navigate = useNavigate();
@@ -15,32 +16,54 @@ const Update = () => {
   useEffect(() => {
     Axios.get(`http://localhost:5000/student/${id}`)
       .then((response) => {
-        const { name, department, phone_no, city, gender } = response.data;
+        const { name, department, phone_no, city, gender, email } =
+          response.data;
         setName(name);
         setDept(department);
         setNum(phone_no);
         setCity(city);
         setGender(gender);
+        setEmail(email);
       })
       .catch((error) => {
         console.error("Error fetching student data:", error);
       });
   }, [id]);
 
+  const [file, setFile] = useState();
+  const handleFile = (e) => {
+    setFile(e.target.files[0]);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
+
     Axios.put(`http://localhost:5000/update/${id}`, {
       name,
       dept,
       num,
       city,
       gender,
+      email,
     })
       .then((result) => {
+        const formData = new FormData();
+        formData.append("image", file);
+
+        Axios.post(`http://localhost:5000/update/${id}/upload`, formData)
+          .then((res) => {
+            if (res.data.status === "success") {
+              console.log("Image upload successful! 😁");
+            } else {
+              console.log("Image upload failed! 😢");
+            }
+          })
+          .catch((e) => console.log("Error uploading image:", e));
+
         navigate("/list");
       })
       .catch((err) => {
-        console.log(err);
+        console.log("Error updating student details:", err);
       });
   };
 
@@ -92,6 +115,16 @@ const Update = () => {
             />
           </div>
           <div className="mb-2">
+            <label htmlFor="username">Email:</label>
+            <input
+              type="text"
+              placeholder="Enter the email"
+              className="form-control"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+          <div className="mb-2">
             <label htmlFor="username">Gender:</label>
             <input
               type="text"
@@ -100,6 +133,7 @@ const Update = () => {
               value={gender}
               onChange={(e) => setGender(e.target.value)}
             />
+            <input type="file" className="pt-4" onChange={handleFile} />
           </div>
           <button className="btn btn-success pt-2 mt-3">
             Update Information

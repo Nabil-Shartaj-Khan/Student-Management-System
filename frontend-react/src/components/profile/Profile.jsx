@@ -10,7 +10,9 @@ const Profile = () => {
     email: "",
     password: "",
     id: "",
+    image: "",
   });
+  console.log(list);
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -123,30 +125,54 @@ const Profile = () => {
       ) : (
         <ul className="fs-2 ms-4 pt-5">
           {list.map((d, i) => (
-            <li key={i}>
-              <strong>Id </strong>: {d.id}
-              <br />
-              <strong>Name</strong>: {d.name}
-              <br />
-              <strong>Email</strong>: {d.email}
-              <br />
-              <strong>Password</strong>: {d.password}
-              <br />
-              <strong>Gender</strong>: {d.gender}
-              <br />
-              <strong>Account type</strong> : {d.role}
-            </li>
+            <div className="d-flex justify-content-around">
+              <div className="row">
+                <li key={i}>
+                  <strong>Id </strong>: {d.id}
+                  <br />
+                  <strong>Name</strong>: {d.name}
+                  <br />
+                  <strong>Email</strong>: {d.email}
+                  <br />
+                  <strong>Password</strong>: {d.password}
+                  <br />
+                  <strong>Gender</strong>: {d.gender}
+                  <br />
+                  <strong>Account type</strong> : {d.role}
+                </li>
+                <p className="fs-4">
+                  Ask the administrator/admin to change your profile picture
+                  😝😂
+                </p>
+              </div>
+
+              <div className="row">
+                {" "}
+                <img
+                  src={`http://localhost:5000/images/` + d.images}
+                  className="border border-2 p-3 shadow-lg"
+                  style={{
+                    width: "430px",
+                    height: "400px",
+                    borderRadius: "50%",
+                  }}
+                  alt="User Image"
+                />
+              </div>
+            </div>
           ))}
         </ul>
       )}
 
       {!editMode && (
-        <button
-          className="btn btn-success ms-5 mt-4"
-          onClick={() => setEditMode(true)}
-        >
-          Edit Profile
-        </button>
+        <div className="d-flex justify-content-center mt-4">
+          <button
+            className="btn btn-success ms-5 mt-4 fs-2 p-2 px-3"
+            onClick={() => setEditMode(true)}
+          >
+            Edit Profile
+          </button>
+        </div>
       )}
     </div>
   );

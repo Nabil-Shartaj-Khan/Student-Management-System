@@ -43,8 +43,11 @@ const Login = () => {
         if (response.data.status === "success") {
           const { role } = response.data;
           const { name } = response.data;
+          const { id } = response.data;
           localStorage.setItem("userRole", role);
           localStorage.setItem("userName", name);
+          localStorage.setItem("userId", id);
+          console.log(id);
           navigate("/home");
         } else {
           setErrorMessage("Invalid credentials or account not found.");

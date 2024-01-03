@@ -1,6 +1,8 @@
 import express from "express";
 import cors from "cors";
 import mysql from "mysql";
+import multer from "multer";
+import path from "path";
 import cookieParser from "cookie-parser";
 import session from "express-session";
 import bodyParser from "body-parser";
@@ -16,6 +18,7 @@ app.use(cors({
 app.use(express.json());
 app.use(cookieParser());
 app.use(bodyParser.json());
+app.use(express.static("public"))
 
 
 const db = mysql.createConnection({
@@ -168,7 +171,7 @@ app.post("/login", (req, res) => {
       console.log("Role:", role); 
       const token = jwt.sign({ id, name, role }, "nabilshartajkhan", { expiresIn: "1d" });
       res.cookie("token", token);
-      return res.json({ status: "success", name, role }); 
+      return res.json({ status: "success", name, role ,id}); 
     } else {
       return res.json({ message: "No data found" });
     }
@@ -333,6 +336,54 @@ app.get("/details/:id", verifyUser, (req, res) => {
     }
   });
 });
+const storage=multer.diskStorage({
+  destination:(req,file,cb)=>{
+    cb(null,"public/images")
+  },
+  filename:(req,file,cb)=>{
+    cb(null,file.fieldname+"_"+Date.now()+path.extname(file.originalname));
+
+  }
+})
+
+const upload = multer({ storage: storage });
+
+app.post("/update/:id/upload", upload.single("image"), (req, res) => {
+  const { id } = req.params;
+  const image = req.file.filename;
+  const sql = "UPDATE `students_list` SET `image`=? WHERE `id`=?";
+  db.query(sql, [image, id], (err, result) => {
+    if (err) {
+      return res.json({ status: "error", message: "Failed to update image" });
+    }
+    return res.json({ status: "success", message: "Image updated successfully" });
+  });
+});
+
+
+app.post("/enrollments/book", verifyUser, (req, res) => {
+  const { student_id, course_id } = req.body;
+
+  const sql = `
+    INSERT INTO enrollments (student_id, course_id, enrollment_date) 
+    VALUES (?, ?, NOW())`;
+  
+  db.query(sql, [student_id, course_id], (error, result) => {
+    if (error) {
+      return res.status(500).json({ error: "Internal server error" });
+    }
+
+    if (result.affectedRows > 0) {
+      return res.status(200).json({ message: "Enrollment successful" });
+    } else {
+      return res.status(400).json({ message: "Enrollment failed" });
+    }
+  });
+});
+
+
+
+
 
 
 

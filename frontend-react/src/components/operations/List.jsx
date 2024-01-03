@@ -47,7 +47,7 @@ function Update() {
             <Link to="/create" className="btn btn-info p-3 my-4">
               Add students
             </Link>
-            <table className="table">
+            <table className="table fs-5">
               <thead>
                 <tr>
                   <th>Name</th>
@@ -55,7 +55,9 @@ function Update() {
                   <th>Phone</th>
                   <th>City</th>
                   <th>Gender</th>
-                  <th>Action</th>
+                  <th>Email</th>
+                  <th className="text-center">Image</th>
+                  <th className="text-center">Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -67,6 +69,25 @@ function Update() {
                       <td>{d.phone_no}</td>
                       <td>{d.city}</td>
                       <td>{d.gender}</td>
+                      <td>{d.email}</td>
+                      <td>
+                        <div
+                          style={{
+                            width: "100px",
+                            height: "80px",
+                            overflow: "hidden",
+                          }}
+                        >
+                          <img
+                            src={`http://localhost:5000/images/` + d.image}
+                            alt={d.name}
+                            style={{
+                              width: "100%",
+                              height: "auto",
+                            }}
+                          />
+                        </div>
+                      </td>
                       <td>
                         <Link
                           to={`/update/${d.id}`}
