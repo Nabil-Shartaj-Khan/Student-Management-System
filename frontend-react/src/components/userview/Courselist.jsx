@@ -26,6 +26,9 @@ const Courselist = () => {
       <h1 className="lead fs-1 text-primary pt-2 ps-4 fw-bold text-center">
         Enrolled course list
       </h1>
+      <h5 className="lead text-center py-1 ps-4">
+        Contact with the administrator to drop a course
+      </h5>
       {courseList &&
         courseList.map((course) => (
           <div key={course.id} className="shadow-lg pt-4 mt-4">
@@ -42,7 +45,7 @@ const Courselist = () => {
                 {" "}
                 Room: <b>{course.room}</b>{" "}
               </p>
-              <p className="ps-4 py-1 pb-3 fs-5">
+              <p className="ps-4 py-1 pb-5 fs-5">
                 {" "}
                 Enrollment ID: <b>{course.enrollment_id}</b>
                 <br></br>

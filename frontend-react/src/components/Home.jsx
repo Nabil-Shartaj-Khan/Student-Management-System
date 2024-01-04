@@ -46,6 +46,11 @@ const Home = () => {
           setAuth(false);
           localStorage.removeItem("userName");
           localStorage.removeItem("userRole");
+          Object.keys(localStorage).forEach((key) => {
+            if (key.startsWith("course_")) {
+              localStorage.removeItem(key);
+            }
+          });
           navigate("/login");
         }
       })
