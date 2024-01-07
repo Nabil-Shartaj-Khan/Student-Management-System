@@ -10,6 +10,7 @@ const Login = () => {
     email: "",
     password: "",
   });
+  const [auth, setAuth] = useState(false);
   const [errors, setErrors] = useState({});
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -41,13 +42,12 @@ const Login = () => {
           values
         );
         if (response.data.status === "success") {
-          const { role } = response.data;
-          const { name } = response.data;
-          const { id } = response.data;
+          const { role, name, id, token } = response.data;
           localStorage.setItem("userRole", role);
           localStorage.setItem("userName", name);
           localStorage.setItem("userId", id);
-          console.log(id);
+          localStorage.setItem("token", token);
+          setAuth(true);
           navigate("/home");
         } else {
           setErrorMessage("Invalid credentials or account not found.");
@@ -64,8 +64,6 @@ const Login = () => {
         console.log(error);
         setErrorMessage("An error occurred. Please try again.");
       }
-    } finally {
-      setIsLoading(false);
     }
   };
 

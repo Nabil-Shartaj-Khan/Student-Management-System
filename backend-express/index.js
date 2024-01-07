@@ -170,7 +170,7 @@ app.post("/login", (req, res) => {
         expiresIn: "1d",
       });
       res.cookie("token", token);
-      return res.json({ status: "success", name, role, id });
+      return res.json({ status: "success", name, role, id, token });
     } else {
       return res.json({ message: "No data found" });
     }
@@ -371,11 +371,9 @@ app.post("/enrollments/book", verifyUser, (req, res) => {
     const maxCourse = 4;
 
     if (totalCourseCount >= maxCourse) {
-      return res
-        .status(400)
-        .json({
-          message: "You have reached the maximum limit of enrolled courses",
-        });
+      return res.status(400).json({
+        message: "You have reached the maximum limit of enrolled courses",
+      });
     }
 
     const sql = `
@@ -407,6 +405,37 @@ app.get("/enrollments/user/:userId", (req, res) => {
       res.status(500).json({ error: "Internal server error" });
     } else {
       res.status(200).json(results);
+    }
+  });
+});
+
+app.get("/student_courses", (req, res) => {
+  const sql = `
+  SELECT enrollments.enrollment_id, login.id AS user_id, login.name AS user_name, course.id AS course_id, course.name AS course_name, enrollments.enrollment_date
+  FROM enrollments
+  JOIN login ON enrollments.student_id = login.id
+  JOIN course ON enrollments.course_id = course.id  
+  `;
+
+  db.query(sql, (error, results) => {
+    if (error) {
+      res.status(500).json({ error: "Internal server error" });
+    } else {
+      res.status(200).json(results);
+    }
+  });
+});
+
+app.delete("/drop_course/:userId/:courseId", (req, res) => {
+  const userId = req.params.userId;
+  const courseId = req.params.courseId;
+
+  const sql = "DELETE FROM enrollments WHERE student_id = ? AND course_id = ?";
+  db.query(sql, [userId, courseId], (error, result) => {
+    if (error) {
+      res.status(500).json({ error: "Internal server error" });
+    } else {
+      res.status(200).json({ message: "Course dropped successfully" });
     }
   });
 });

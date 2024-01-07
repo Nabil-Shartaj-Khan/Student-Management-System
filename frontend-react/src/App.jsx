@@ -18,6 +18,7 @@ import Createcourse from "./components/course/Createcourse";
 import Viewcourse from "./components/userview/Viewcourse";
 import Details from "./components/userview/Details";
 import Courselist from "./components/userview/Courselist";
+import Booked from "./components/operations/Booked";
 
 function App() {
   const [data, setData] = useState();
@@ -51,6 +52,7 @@ function App() {
           <Route path="/view" element={<Viewcourse />} />
           <Route path="/enroll_list" element={<Courselist />} />
           <Route path="/details/:id" element={<Details />} />
+          <Route path="/student_courses" element={<Booked />} />
           <Route path="*" element={<Notfound />} />
           <Route path="/" element={<Navigate to="/login" />} />
         </Routes>

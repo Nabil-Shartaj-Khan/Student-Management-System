@@ -15,6 +15,13 @@ const Admin = ({ name }) => {
         <Link to={"/courses"} className="btn btn-outline-info ms-2 pt-2">
           Add Courses
         </Link>
+
+        <Link
+          to={"/student_courses"}
+          className="btn btn-outline-success ms-4 pt-2"
+        >
+          Booked courses
+        </Link>
       </div>
     </div>
   );
