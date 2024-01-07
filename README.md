@@ -15,7 +15,6 @@
 3. User can view all the available courses
 4. Book a course
 
-More features to be added soon...
 
 ***Used languages and frameworks***
 
