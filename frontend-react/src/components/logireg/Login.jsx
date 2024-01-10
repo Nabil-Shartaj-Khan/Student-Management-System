@@ -74,56 +74,59 @@ const Login = () => {
   };
 
   return (
-    <div className="d-flex justify-content-center align-items-center">
-      <div className="p-3">
-        <form
-          action=""
-          className="border border-primary border-2 p-5 m-5 shadow-lg"
-          onSubmit={handleSubmit}
-        >
-          <div className="mb-3">
-            <label htmlFor="email">
-              <b>Email:</b>
-            </label>
-            <input
-              type="email"
-              placeholder="Enter your email"
-              className="form-control my-3 p-3"
-              onChange={handleInput}
-              name="email"
-            />
-            {errors.email && (
-              <span className="text-danger">{errors.email}</span>
-            )}
-          </div>
-          <div className="mb-3">
-            <label htmlFor="password">
-              <b>Password:</b>
-            </label>
-            <input
-              type="password"
-              placeholder="Enter your password"
-              className="form-control my-3 p-3"
-              onChange={handleInput}
-              name="password"
-            />
-            {errors.password && (
-              <span className="text-danger">{errors.password}</span>
-            )}
-            {errorMessage && (
-              <span className="text-danger">{errorMessage}</span>
-            )}
-          </div>
-          <button type="submit" className="btn btn-success w-100">
-            Log IN
-          </button>
-          <p className="lead mt-3">
-            If you don't have an account, you can register one here!
-          </p>
-          <Link to="/signup" className="btn btn-primary w-100 mt-2">
-            Register
-          </Link>
-        </form>
+    <div>
+      <h4 className="text-success fs-1 text-center">Login to Your Account</h4>
+      <div className="d-flex justify-content-center align-items-center">
+        <div className="p-3">
+          <form
+            action=""
+            className="border border-primary border-2 p-5 m-5 shadow-lg"
+            onSubmit={handleSubmit}
+          >
+            <div className="mb-3">
+              <label htmlFor="email">
+                <b>Email:</b>
+              </label>
+              <input
+                type="email"
+                placeholder="Enter your email"
+                className="form-control my-3 p-3"
+                onChange={handleInput}
+                name="email"
+              />
+              {errors.email && (
+                <span className="text-danger">{errors.email}</span>
+              )}
+            </div>
+            <div className="mb-3">
+              <label htmlFor="password">
+                <b>Password:</b>
+              </label>
+              <input
+                type="password"
+                placeholder="Enter your password"
+                className="form-control my-3 p-3"
+                onChange={handleInput}
+                name="password"
+              />
+              {errors.password && (
+                <span className="text-danger">{errors.password}</span>
+              )}
+              {errorMessage && (
+                <span className="text-danger">{errorMessage}</span>
+              )}
+            </div>
+            <button type="submit" className="btn btn-success w-100">
+              Log IN
+            </button>
+            <p className="lead mt-3">
+              If you don't have an account, you can register one here!
+            </p>
+            <Link to="/signup" className="btn btn-primary w-100 mt-2">
+              Register
+            </Link>
+          </form>
+        </div>
       </div>
     </div>
   );

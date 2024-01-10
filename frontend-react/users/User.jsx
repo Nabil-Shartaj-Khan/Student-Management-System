@@ -5,16 +5,18 @@ const User = ({ name }) => {
     <div>
       <h2>Welcome User</h2>
       <p className="fs-3 lead">nice to meet you, {name}</p>
-      <Link to={"/profile"} className="btn btn-primary mb-4 me-2">
-        Profile information
-      </Link>
-      <Link to={"/view"} className="btn btn-warning mb-4 ms-4">
-        View courses
-      </Link>
+      <div className="d-flex justify-content-center pt-3">
+        <Link to={"/profile"} className="btn btn-primary mb-4 me-2">
+          Profile information
+        </Link>
+        <Link to={"/view"} className="btn btn-warning mb-4 ms-4">
+          View courses
+        </Link>
 
-      <Link to={"/enroll_list"} className="btn btn-info mb-4 ms-4">
-        Enrolled Courses
-      </Link>
+        <Link to={"/enroll_list"} className="btn btn-info mb-4 ms-4">
+          Enrolled Courses
+        </Link>
+      </div>
     </div>
   );
 };
