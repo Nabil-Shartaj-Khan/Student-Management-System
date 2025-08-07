@@ -22,10 +22,10 @@ app.use(bodyParser.json());
 app.use(express.static("public"));
 
 const db = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "",
-  database: "university",
+  host: env.HOST_NAME,
+  user: env.USER_NAME,
+  password: env.PASSWORD,
+  database: env.DATABASE_NAME,
 });
 
 app.get("/getData", (req, res) => {
